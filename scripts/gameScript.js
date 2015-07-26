@@ -30,11 +30,19 @@
             drawAll();
         },1000/framesPerSec);
 
+        canvas.addEventListener('mousedown',handleMouseClick);
         canvas.addEventListener('mousemove',function(evt){
             var mousePos = calcMousePos(evt);
             paddle1Y = mousePos.y -(PADDLE_HEIGHT/2);
         });
     };
+    function handleMouseClick(evt){
+        if(winScreen){
+            player1Score = 0;
+            player2Score = 0;
+            winScreen = false;
+        }
+    }
     function init(){
         canvas = document.getElementById('gameCanvas');
     }
@@ -114,8 +122,6 @@
     }
     function ballReset(){
         if((player1Score >= MAX_SCORE) || (player2Score  >= MAX_SCORE)){
-            player1Score = 0;
-            player2Score = 0;
             winScreen = true;
         }
 
@@ -125,11 +131,11 @@
     }
     function AIPlayer() {
         var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT / 2);
-        if (paddle2YCenter < ballY - 35) {
-            paddle2Y += 10;
+        if (paddle2YCenter < ballY - 40) {
+            paddle2Y += 8;
         }
-        else if (paddle2YCenter < ballY + 35) {
-            paddle2Y -= 10;
+        else if (paddle2YCenter < ballY + 40) {
+            paddle2Y -= 8;
         }
     }
 
